@@ -5,6 +5,7 @@ import Homepage from "./components/Home.page"
 import Traditionalpage from './components/Traditional.page';
 import RQpage from "./components/RQ.page"
 
+import { ReactQueryDevtools } from "react-query/devtools"
 function App() {
   return (
     <React.Fragment>
@@ -27,6 +28,8 @@ function App() {
         <Route path='traditional' element={<Traditionalpage />}></Route>
         <Route path='rq' element={<RQpage />}></Route>
       </Routes>
+
+      <ReactQueryDevtools initialIsOpen={false} position='bottom-right' />
     </React.Fragment>
   );
 }

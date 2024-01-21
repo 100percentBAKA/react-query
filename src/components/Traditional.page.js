@@ -10,7 +10,7 @@ export default function Traditionalpage() {
     const [error, setError] = useState('')
 
     useEffect(() => {
-        axios.get('http://localhost:4000/posts').then((res) => {
+        axios.get('http://localhost:4000/comments').then((res) => {
             setData(res.data)
             setIsLoading(false)
         }).catch(error => {
@@ -39,7 +39,12 @@ export default function Traditionalpage() {
                     {
                         data.map((element) => (
                             <div key={element.id}>
-                                {element.title}
+                                <div >
+                                    Comment:  {element.text}
+                                </div>
+                                <div>
+                                    Post ID: {element.postId}
+                                </div>
                             </div>
                         ))
                     }
