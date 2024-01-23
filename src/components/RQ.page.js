@@ -2,9 +2,11 @@ import React from 'react'
 import { useQuery } from 'react-query'
 import axios from 'axios'
 
-const fetchComment = () => {
-    return axios.get("http://localhost:4000/comments")
-}
+// * imports custom query hook
+import useApiData from '../hooks/useApiData'
+
+// * endpoints
+const COMMENTS_ENDPOINT = "comments"
 
 export default function RQpage() {
 
@@ -19,18 +21,8 @@ export default function RQpage() {
 
     // * notice that we are not using useEffect hook, useQuery will internally handle caching, and will only perform refetch if and only if specifically asked 
     // * if the query key remains the same throughout, refetch will not be performed 
-    const { isLoading, isFetching, data, isError, error, refetch } = useQuery('id-comments', fetchComment,
-        {
-            enabled: false,
-            onSuccess: (data) => {
-                console.log("Success", data)
-                // * can be used to display toast, or send notification
-            },
-            onError: (error) => {
-                console.log("Error", error)
-                // * display toast or notification
-            }
-        })
+
+    const { isLoading, isFetching, data, isError, error, refetch } = useApiData(COMMENTS_ENDPOINT)
 
     // * CACHE TIME: useQuery performs caching of the data for a time period of 5 mins
     // * if the data to be fetched change, react query perform fetching ( isFetching )
