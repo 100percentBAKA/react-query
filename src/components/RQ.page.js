@@ -1,12 +1,14 @@
 import React from 'react'
-import { useQuery } from 'react-query'
-import axios from 'axios'
 
 // * imports custom query hook
 import useApiData from '../hooks/useApiData'
 
+// * RRD imports
+import { Link } from 'react-router-dom'
+
 // * endpoints
-const COMMENTS_ENDPOINT = "comments"
+const COMMENTS_ENDPOINT = "posts"
+
 
 export default function RQpage() {
 
@@ -22,7 +24,9 @@ export default function RQpage() {
     // * notice that we are not using useEffect hook, useQuery will internally handle caching, and will only perform refetch if and only if specifically asked 
     // * if the query key remains the same throughout, refetch will not be performed 
 
-    const { isLoading, isFetching, data, isError, error, refetch } = useApiData(COMMENTS_ENDPOINT)
+    const { isLoading, isFetching, data, isError, error, refetch } = useApiData(COMMENTS_ENDPOINT, {
+        enabled: false
+    })
 
     // * CACHE TIME: useQuery performs caching of the data for a time period of 5 mins
     // * if the data to be fetched change, react query perform fetching ( isFetching )
@@ -31,19 +35,20 @@ export default function RQpage() {
     //* by default, react query sets the stale time to 0 ms, that is the data as soon as it arrives is termed to be 'stale'
     //* we can set the stale time by passing it as an object to the useQuery 
 
-    //? console.log(`Loading: ${isLoading}, Fetching: ${isFetching}`)
+    // ? console.log(data.data)
+    // ? console.log(`Loading: ${isLoading}, Fetching: ${isFetching}`)
 
-    if (isLoading || isFetching) {
-        return (
-            <h2>Loading . . . </h2>
-        )
-    }
+    // if (isLoading || isFetching) {
+    //     return (
+    //         <h2>Loading . . . </h2>
+    //     )
+    // }
 
-    if (isError) {
-        return (
-            <h2>{error.message}</h2>
-        )
-    }
+    // if (isError) {
+    //     return (
+    //         <h2>{error.message}</h2>
+    //     )
+    // }
     return (
         <React.Fragment>
             <h2>RQ page</h2>
@@ -61,8 +66,8 @@ export default function RQpage() {
                                 {
                                     data?.data.map((element) => (
                                         <div key={element.id}>
-                                            Comment: {element.text}
-                                            <div>PostID: {element.postId}</div>
+                                            <Link to={`/rq/${element.id}`}>{element.id}</Link>
+                                            Comment: {element.title}
                                         </div>
                                     ))
                                 }
