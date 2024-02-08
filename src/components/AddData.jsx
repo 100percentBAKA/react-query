@@ -25,15 +25,15 @@ export const LOGIN_SCHEMA = yup.object().shape({
   password: yup
     .string()
     .min(5, "Password must be a minimum of 5 characters")
-    // .matches(
-    //   passwordRules,
-    //   "Password must contain at least one uppercase letter, one lowercase letter, and one number"
-    // )
+    .matches(
+      passwordRules,
+      "Password must contain at least one uppercase letter, one lowercase letter, and one number"
+    )
     .required("Password is required"),
 });
 
 export default function AddData() {
-  const { mutate: addLoginData } = useAddFrenzData();
+  const { mutate: addLoginData, isLoading } = useAddFrenzData();
 
   const formik = useFormik({
     initialValues: {
@@ -46,11 +46,13 @@ export default function AddData() {
     },
   });
 
-  const { data: loginData } = useCustomApiData(
-    "http://localhost:4000",
-    "login",
-    {}
-  );
+  //   const { data: loginData } = useCustomApiData(
+  //     "http://localhost:4000",
+  //     "login",
+  //     {}
+  //   );
+
+  //   console.log(loginData?.data);
 
   return (
     <Box>
@@ -66,6 +68,10 @@ export default function AddData() {
           onBlur={formik.handleBlur}
           error={formik.touched.username && formik.errors.username}
         />
+        {/* error message display for username */}
+        {formik.touched.username && formik.errors.username ? (
+          <div>{formik.errors.username}</div>
+        ) : null}
         <StyledTextField
           type="password"
           id="password"
@@ -77,10 +83,24 @@ export default function AddData() {
           onChange={formik.handleChange}
           error={Boolean(formik.touched.password && formik.errors.password)}
         />
+        {/* error message display for password */}
+        {formik.touched.password && formik.errors.password ? (
+          <div style={{ color: "red" }}>{formik.errors.password}</div>
+        ) : null}
 
-        <Button variant="outlined" sx={{ width: "fit-content" }} type="submit">
-          Submit
-        </Button>
+        {isLoading ? (
+          <Button disabled variant="outlined">
+            Loading . . .
+          </Button>
+        ) : (
+          <Button
+            variant="outlined"
+            sx={{ width: "fit-content" }}
+            type="submit"
+          >
+            Submit
+          </Button>
+        )}
       </StyledForm>
     </Box>
   );
