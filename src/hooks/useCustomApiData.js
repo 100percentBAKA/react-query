@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery, useQueryClient, useMutation } from "react-query";
 import axios from "axios";
 
 async function fetchData({ queryKey }) {
@@ -10,6 +10,18 @@ async function fetchData({ queryKey }) {
     }
 }
 
+async function addData(data) {
+    try {
+        return await axios.post("http://localhost:4000/login", data)
+    } catch (error) {
+        throw new Error(`Error adding data to the server.`)
+    }
+}
+
 export const useCustomApiData = (baseurl, endpoint, options = {}) => {
     return useQuery([baseurl, endpoint], fetchData, options)
+}
+
+export const useAddFrenzData = () => {
+    return useMutation(addData)
 }

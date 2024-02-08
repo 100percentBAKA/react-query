@@ -1,26 +1,85 @@
 {
   "posts": [
-    { "id": "1", "title": "a title" },
-    { "id": "2", "title": "another title" },
-    { "id": "3", "title": "another another title" },
-    { "id": "4", "title": "another another another title nigga" }
+    {
+      "id": "1",
+      "title": "a title"
+    },
+    {
+      "id": "2",
+      "title": "another title"
+    },
+    {
+      "id": "3",
+      "title": "another another title"
+    },
+    {
+      "id": "4",
+      "title": "another another another title nigga"
+    }
   ],
-
   "frenz": [
-    { "id": "1", "title": "DBOSS" },
-    { "id": "2", "title": "SUSNAT" },
-    { "id": "3", "title": "PUNIT" }
+    {
+      "id": "1",
+      "title": "DBOSS"
+    },
+    {
+      "id": "2",
+      "title": "SUSNAT"
+    },
+    {
+      "id": "3",
+      "title": "PUNIT"
+    }
   ],
-
   "comments": [
-    { "id": "1", "text": "a comment about post 1", "postId": "1" },
+    {
+      "id": "1",
+      "text": "a comment about post 1",
+      "postId": "1"
+    },
     {
       "id": "2",
       "text": "another comment about post 1",
       "postId": "1"
     }
   ],
-  "profile": {
-    "name": "typicode"
-  }
+  "company": [
+    {
+      "id": "1",
+      "frenzId": "1",
+      "name": "HCL"
+    },
+    {
+      "id": "2",
+      "frenzId": "1",
+      "name": "Freelancing"
+    },
+    {
+      "id": "3",
+      "frenzId": "3",
+      "name": "Apple"
+    }
+  ],
+  "login": [
+    {
+      "id": "1",
+      "username": "adarsh",
+      "password": "ada"
+    },
+    {
+      "id": "2",
+      "username": "akash",
+      "password": "aka"
+    },
+    {
+      "id": "5693",
+      "username": "Hello world",
+      "password": "password"
+    },
+    {
+      "id": "e166",
+      "username": "hello world",
+      "password": "hello"
+    }
+  ]
 }
