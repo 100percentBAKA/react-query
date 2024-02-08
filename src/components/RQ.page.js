@@ -6,8 +6,12 @@ import useApiData from '../hooks/useApiData'
 // * RRD imports
 import { Link } from 'react-router-dom'
 
+// * react skeleton loading imports
+import Skeleton from 'react-loading-skeleton'
+
 // * endpoints
 const COMMENTS_ENDPOINT = "posts"
+
 
 
 export default function RQpage() {
@@ -24,7 +28,7 @@ export default function RQpage() {
     // * notice that we are not using useEffect hook, useQuery will internally handle caching, and will only perform refetch if and only if specifically asked 
     // * if the query key remains the same throughout, refetch will not be performed 
 
-    const { isLoading, isFetching, data, isError, error, refetch } = useApiData(COMMENTS_ENDPOINT, {
+    const { isLoading, isFetching, data, refetch } = useApiData(COMMENTS_ENDPOINT, {
         enabled: false
     })
 
@@ -53,27 +57,23 @@ export default function RQpage() {
         <React.Fragment>
             <h2>RQ page</h2>
             <button onClick={refetch}>Click</button>
+
             {
-                isLoading || isFetching ?
-                    (
-                        <h2>Loading . . . </h2>
-                    ) : isError ?
-                        (
-                            <h2>{error.message}</h2>
-                        ) :
-                        (
-                            <div>
-                                {
-                                    data?.data.map((element) => (
-                                        <div key={element.id}>
-                                            <Link to={`/rq/${element.id}`}>{element.id}</Link>
-                                            Comment: {element.title}
-                                        </div>
-                                    ))
-                                }
-                            </div>
-                        )
+                isLoading || isFetching ? (
+                    <Skeleton />
+                ) : (
+                    <div>
+                        {
+                            data?.data.map((element) => (
+                                <div key={element.id}>
+                                    <Link to={`/rq/${element.id}`}>{element.id} Comment: {element.title}</Link>
+                                </div>
+                            ))
+                        }
+                    </div>
+                )
             }
+
         </React.Fragment>
     )
 }

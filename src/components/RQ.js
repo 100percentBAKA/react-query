@@ -2,6 +2,8 @@ import React from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { useCustomApiData } from '../hooks/useCustomApiData'
 
+const BASE_URL = 'http://localhost:4000/posts'
+
 export default function RQ() {
 
     const navigate = useNavigate()
@@ -9,7 +11,6 @@ export default function RQ() {
     const { postID } = useParams()
     // console.log(postID)
 
-    const BASE_URL = 'http://localhost:4000/posts'
     const ENDPOINT = postID
 
     const { isLoading, isFetching, data, isError, error, refetch } = useCustomApiData(BASE_URL, ENDPOINT)
