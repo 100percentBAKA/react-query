@@ -18,10 +18,30 @@ async function addData(data) {
     }
 }
 
+function fetchLoginData() {
+    const URL = "http://localhost:4000/login"
+
+    try {
+        return axios.get(URL)
+    } catch (error) {
+        throw new Error(`Error fetching data from ${URL}\nError message: ${error.message}`)
+    }
+}
+
 export const useCustomApiData = (baseurl, endpoint, options = {}) => {
     return useQuery([baseurl, endpoint], fetchData, options)
 }
 
 export const useAddFrenzData = () => {
-    return useMutation(addData)
+    const client = useQueryClient()
+    //! perform query invalidation to trigger the re fetch of what ever data is required to be displayed 
+    return useMutation(addData, {
+        onSuccess: () => {
+            client.invalidateQueries('login-data')
+        }
+    })
+}
+
+export const useLoginData = () => {
+    return useQuery('login-data', fetchLoginData, { enabled: true })
 }
