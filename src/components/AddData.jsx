@@ -2,7 +2,11 @@ import { Box, Button, TextField, styled } from "@mui/material";
 import React from "react";
 import * as yup from "yup";
 import { useFormik } from "formik";
-import { useAddFrenzData, useCustomApiData } from "../hooks/useCustomApiData";
+import {
+  useAddFrenzData,
+  useCustomApiData,
+  useLoginData,
+} from "../hooks/useCustomApiData";
 
 // styled components
 const StyledForm = styled("form")(({ theme }) => ({
@@ -25,10 +29,10 @@ export const LOGIN_SCHEMA = yup.object().shape({
   password: yup
     .string()
     .min(5, "Password must be a minimum of 5 characters")
-    .matches(
-      passwordRules,
-      "Password must contain at least one uppercase letter, one lowercase letter, and one number"
-    )
+    // .matches(
+    //   passwordRules,
+    //   "Password must contain at least one uppercase letter, one lowercase letter, and one number"
+    // )
     .required("Password is required"),
 });
 
@@ -46,13 +50,8 @@ export default function AddData() {
     },
   });
 
-  //   const { data: loginData } = useCustomApiData(
-  //     "http://localhost:4000",
-  //     "login",
-  //     {}
-  //   );
-
-  //   console.log(loginData?.data);
+  const { data, refetch } = useLoginData();
+  // console.log(data);
 
   return (
     <Box>
@@ -102,6 +101,16 @@ export default function AddData() {
           </Button>
         )}
       </StyledForm>
+
+      <button onClick={refetch}>refetch</button>
+
+      <div>
+        {data?.data.map((data) => (
+          <div key={data.id}>
+            username: {data.username} password: {data.password}
+          </div>
+        ))}
+      </div>
     </Box>
   );
 }

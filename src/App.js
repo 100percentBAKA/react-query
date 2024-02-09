@@ -12,6 +12,7 @@ import DynamicParallel from './components/DynamicParallel';
 import Testing from './components/Testing';
 import TestingSub from './components/TestingSub';
 import AddData from './components/AddData';
+import CancelQuery from './components/CancelQuery';
 function App() {
   return (
     <React.Fragment>
@@ -44,6 +45,7 @@ function App() {
         </Route>
         {/* <Route path='testing/:id' element={<TestingSub />}></Route> */}
         <Route path='add-form' element={<AddData />}></Route>
+        <Route path='cancel' element={<CancelQuery />} />
       </Routes>
 
       <ReactQueryDevtools initialIsOpen={false} position='bottom-right' />
